@@ -1,0 +1,27 @@
+diff --git a/Makefile b/Makefile
+index eb8d60f..d15fce3 100644
+--- a/Makefile
++++ b/Makefile
+@@ -10,7 +10,7 @@
+ #
+ .SUFFIXES : .ml .mli .cmo .cmi .cmx .mll .mly
+ 
+-INSTALL_DIR=/usr
++INSTALL_DIR=$(DESTDIR)/usr
+ 
+ OUTPUT=haxe
+ EXTENSION=
+@@ -62,10 +62,11 @@ haxedoc:
+ tools: haxelib haxedoc
+ 
+ install:
++	-mkdir -p $(INSTALL_DIR)/bin
++	-mkdir -p $(INSTALL_DIR)/lib
+ 	cp haxe $(INSTALL_DIR)/bin/haxe
+-	rm -rf $(INSTALL_DIR)/lib/haxe/std
+ 	-mkdir -p $(INSTALL_DIR)/lib/haxe
+-	svn export std/ $(INSTALL_DIR)/lib/haxe/std
++	cp -r std/ $(INSTALL_DIR)/lib/haxe/
+ 	-mkdir -p $(INSTALL_DIR)/lib/haxe/lib
+ 	chmod -R a+rx $(INSTALL_DIR)/lib/haxe
+ 	chmod 777 $(INSTALL_DIR)/lib/haxe/lib
